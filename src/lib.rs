@@ -13,26 +13,22 @@ pub const fn sieve_of_eratosthenes<const N: usize>() -> [bool; N] {
 
     let mut i: usize = 2;
 
-    loop {
-        // if we are still within the collection
-        if i <= N {
-            // if the n at the current index is a prime
-            if numbers[i - 2] {
-                let mut multiplier = 0;
-                let mut composite = compute_j(i, multiplier);
+    // for all numbers 2..=N
+    while i <= N {
+        // if the n at the current index is a prime
+        if numbers[i - 2] {
+            let mut multiplier = 0;
+            let mut composite = compute_j(i, multiplier);
 
-                while composite <= N + 1 {
-                    numbers[composite - 2] = false;
+            while composite <= N + 1 {
+                numbers[composite - 2] = false;
 
-                    multiplier += 1;
-                    composite = compute_j(i, multiplier);
-                }
+                multiplier += 1;
+                composite = compute_j(i, multiplier);
             }
-
-            i += 1;
-        } else {
-            break;
         }
+
+        i += 1;
     }
 
     // special case handling in case the very last number is somehow prime
